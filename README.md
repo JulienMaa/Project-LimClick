@@ -25,6 +25,9 @@ Installe les bibliothèques nécessaires :
 
 ```bash
 pip install pyautogui pillow keyboard
+
+# Pour tout installer d'un coup
+pip install -r requirements.txt
 ```
 
 ---
