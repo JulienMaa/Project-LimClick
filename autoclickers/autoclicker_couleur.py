@@ -31,39 +31,41 @@ class AutoClicker:
         threading.Thread(target=self.listen_toggle_key, daemon=True).start()
 
     def build_ui(self):
-        main_frame = ttk.Frame(self.root, padding="20")
-        main_frame.grid(row=0, column=0, sticky="nsew")
+        self.root.option_add("*Font", "Helvetica 11")
+        main_frame = tk.Frame(self.root, bg="#EBE8DB", padx=20, pady=20)
+        main_frame.pack(fill="both", expand=True)
 
-        style = ttk.Style()
-        style.configure("TButton", padding=6, relief="flat", font=("Helvetica", 12), anchor="center", width=20)
-        style.configure("TCheckbutton", font=("Helvetica", 12))
+        def make_button(text, command):
+            return tk.Button(main_frame, text=text, command=command, bg="#D76C82", fg="white",
+                             activebackground="#B03052", activeforeground="white", relief="flat", height=2)
 
-        ttk.Label(main_frame, text="AutoClicker Couleur", font=("Helvetica", 18, "bold"),
-                  foreground="#2980b9", background="#f0f4f8").grid(row=0, column=0, columnspan=2, pady=10)
+        tk.Label(main_frame, text="🎯 LimClicker", font=("Helvetica", 18, "bold"),
+                 bg="#EBE8DB", fg="#B03052").grid(row=0, column=0, columnspan=2, pady=(0, 20))
 
-        ttk.Button(main_frame, text="💾 Sauvegarder", command=self.save_settings).grid(row=1, column=0, pady=5)
-        ttk.Button(main_frame, text="📂 Charger", command=self.load_settings).grid(row=1, column=1, pady=5)
-        ttk.Button(main_frame, text="🎨 Choisir couleur", command=self.pick_color).grid(row=2, column=0, pady=5, padx=10)
-        ttk.Button(main_frame, text="🖱 Pipette", command=lambda: self.wait_for_click_position("color")).grid(row=2, column=1, pady=5, padx=10)
-        ttk.Button(main_frame, text="📌 Point à vérifier", command=lambda: self.wait_for_click_position("check")).grid(row=3, column=0, pady=5, padx=10)
-        ttk.Button(main_frame, text="🎯 Point de clic", command=lambda: self.wait_for_click_position("click")).grid(row=3, column=1, pady=5, padx=10)
+        make_button("💾 Sauvegarder", self.save_settings).grid(row=1, column=0, pady=5, sticky="ew")
+        make_button("📂 Charger", self.load_settings).grid(row=1, column=1, pady=5, sticky="ew")
+        make_button("🎨 Choisir couleur", self.pick_color).grid(row=2, column=0, pady=5, sticky="ew")
+        make_button("🖱 Pipette (Pixel)", lambda: self.wait_for_click_position("color")).grid(row=2, column=1, pady=5, sticky="ew")
+        make_button("📌 Point à vérifier", lambda: self.wait_for_click_position("check")).grid(row=3, column=0, pady=5, sticky="ew")
+        make_button("🎯 Point de clic", lambda: self.wait_for_click_position("click")).grid(row=3, column=1, pady=5, sticky="ew")
 
-        ttk.Label(main_frame, text="⏱️ Intervalle (s)", foreground="#34495e", background="#f0f4f8").grid(row=4, column=0, pady=5)
-        self.interval_entry = ttk.Entry(main_frame, font=("Helvetica", 12), width=10)
+        tk.Label(main_frame, text="⏱️ Intervalle (s)", bg="#EBE8DB", fg="#3D0301").grid(row=4, column=0, pady=5, sticky="w")
+        self.interval_entry = tk.Entry(main_frame, width=10, bg="#FBF8EB", fg="black", insertbackground="black", relief="flat")
         self.interval_entry.insert(0, "1.0")
-        self.interval_entry.grid(row=4, column=1, pady=5, padx=10)
+        self.interval_entry.grid(row=4, column=1, pady=5, sticky="ew")
 
         self.keep_on_top = tk.IntVar(value=1)
-        ttk.Checkbutton(main_frame, text="🪟 Garder fenêtre au premier plan", variable=self.keep_on_top,
-                        command=self.toggle_topmost).grid(row=5, column=0, columnspan=2, pady=5)
+        tk.Checkbutton(main_frame, text="🪟 Garder fenêtre au premier plan", variable=self.keep_on_top,
+                       bg="#EBE8DB", fg="#3D0301", selectcolor="#D76C82", activebackground="#EBE8DB",
+                       command=self.toggle_topmost).grid(row=5, column=0, columnspan=2, pady=10, sticky="w")
 
-        ttk.Label(main_frame, text="🎨 Couleur sélectionnée", foreground="#34495e", background="#f0f4f8").grid(row=6, column=0, columnspan=2, pady=5)
-        self.color_display = tk.Label(main_frame, relief="solid", width=20, height=2, bg="#ffffff", anchor="center", font=("Helvetica", 12))
+        tk.Label(main_frame, text="🎨 Couleur sélectionnée :", bg="#EBE8DB", fg="#3D0301").grid(row=6, column=0, columnspan=2, pady=(10, 0))
+        self.color_display = tk.Label(main_frame, relief="solid", width=20, height=2, bg="#ffffff")
         self.color_display.grid(row=7, column=0, columnspan=2, pady=10)
 
-        self.status_label = ttk.Label(main_frame, text="AutoClicker désactivé (F7)", font=("Helvetica", 12),
-                                      foreground="#e74c3c", background="#f0f4f8")
-        self.status_label.grid(row=9, column=0, columnspan=2, pady=10)
+        self.status_label = tk.Label(main_frame, text="AutoClicker désactivé (F7)", fg="#B03052", bg="#EBE8DB", font=("Helvetica", 11))
+        self.status_label.grid(row=8, column=0, columnspan=2, pady=10)
+
 
     def toggle_topmost(self):
         self.root.attributes("-topmost", bool(self.keep_on_top.get()))
