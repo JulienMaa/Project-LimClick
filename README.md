@@ -1,6 +1,6 @@
 # 🖱️ Project LimClick
 
-Bienvenue dans **Project LimClick** – une collection d'autoclickers Python personnalisés, conçus pour automatiser des tâches en fonction de la couleur d’un pixel à l’écran.
+Bienvenue dans **Project LimClick** – une collection d'autoclickers Python personnalisés, conçus pour automatiser des tâches en fonction de la couleur d’un pixel à l’écran ou d'autres critères.
 
 Que ce soit pour du test, du farming ou tout autre automatisation, LimClick te laisse le contrôle total !
 
@@ -27,20 +27,26 @@ Installe les bibliothèques nécessaires :
 pip install pyautogui pillow keyboard
 ```
 
-## ▶️ Lancer le script
+---
+
+## ▶️ Lancer un autoclicker
+
+Chaque autoclicker est situé dans le dossier `/autoclickers`.
+
+Exemple :
 
 ```bash
-python autoclicker.py
+python autoclickers/autoclicker_couleur.py
 ```
 
 ---
 
 ## 🛠 Convertir en .exe
 
-Tu peux transformer le script en application Windows :
+Tu peux transformer un script en application Windows :
 
 ```bash
-pyinstaller --onefile --noconsole --clean autoclicker.py
+pyinstaller --onefile --noconsole --clean autoclicker_couleur.py
 ```
 
 > Le fichier `.exe` se trouvera dans le dossier `/dist`.
@@ -51,30 +57,14 @@ pyinstaller --onefile --noconsole --clean autoclicker.py
 
 ```
 📁 Project-LimClick/
-├── autoclicker.py         # Script principal
-├── README.md              # Ce fichier
-├── requirements.txt       # Dépendances (facultatif)
-└── dist/                  # Exécutables générés
+├── autoclickers/              # Dossier contenant les différents autoclickers
+│   ├── autoclicker_couleur.py
+│   ├── autoclicker_key.py
+│   └── autoclicker_simple.py
+├── README.md
+├── LICENSE
+└── requirements.txt
 ```
-
----
-
-## 🚨 Problèmes avec l’antivirus ?
-
-Certains antivirus peuvent détecter à tort l’exécutable comme dangereux (faux positif), notamment à cause des modules comme `keyboard`.
-
-✅ Compile sur un environnement propre  
-✅ Utilise l'option `--clean` avec PyInstaller  
-✅ Vérifie sur [VirusTotal](https://www.virustotal.com)
-
----
-
-## 📌 À venir
-
-- [ ] Choix de la touche pour activer/désactiver
-- [ ] Sauvegarde et chargement des paramètres
-- [ ] Interface plus esthétique
-- [ ] Amélioration du support multi-écran
 
 ---
 
@@ -85,13 +75,5 @@ Tu peux l’utiliser, le modifier et le partager librement.
 
 ---
 
-## 🤝 Contributions
-
-N’hésite pas à ouvrir une *issue*, une *pull request*, ou à proposer des idées !
-
----
-
 **Project LimClick** – Clique malin, clique LimClick ⚡
 ```
-
-Tu veux que je te génère aussi un `requirements.txt` ? Et tu veux que je te crée une version en anglais aussi dans le repo (`README.fr.md` et `README.md` par exemple) ?
