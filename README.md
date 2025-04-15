@@ -76,4 +76,3 @@ Tu peux l’utiliser, le modifier et le partager librement.
 ---
 
 **Project LimClick** – Clique malin, clique LimClick ⚡
-```
