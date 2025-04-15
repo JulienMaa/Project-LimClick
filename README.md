@@ -1,4 +1,3 @@
-```markdown
 # 🖱️ Project LimClick
 
 Bienvenue dans **Project LimClick** – une collection d'autoclickers Python personnalisés, conçus pour automatiser des tâches en fonction de la couleur d’un pixel à l’écran.
@@ -27,8 +26,6 @@ Installe les bibliothèques nécessaires :
 ```bash
 pip install pyautogui pillow keyboard
 ```
-
----
 
 ## ▶️ Lancer le script
 
