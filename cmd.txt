@@ -1,0 +1,1 @@
+python -m PyInstaller --onefile --noconsole --clean --strip --exclude-module matplotlib --exclude-module numpy --exclude-module pandas --exclude-module PIL lim_autoclicker.py
