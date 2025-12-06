@@ -1,4 +1,3 @@
-
 import tkinter as tk
 from pynput import keyboard
 import threading
@@ -14,6 +13,7 @@ class AutoKeyPresser:
         self.key_to_press = "space"
         self.interval = 1.0
         self.running = False
+        self.topmost = False
 
         self.build_ui()
         threading.Thread(target=self.listen_hotkey, daemon=True).start()
@@ -37,6 +37,18 @@ class AutoKeyPresser:
 
         self.status_label = tk.Label(self.root, text="AutoKey désactivé (F8)", bg="#EBE8DB", fg="#B03052", font=("Helvetica", 11))
         self.status_label.pack(pady=(15, 10))
+
+        self.topmost_button = tk.Button(self.root, text="🔓 Rester au-dessus: OFF", command=self.toggle_topmost,
+                                        bg="#D76C82", fg="white", relief="flat")
+        self.topmost_button.pack(pady=(5, 10))
+
+    def toggle_topmost(self):
+        self.topmost = not self.topmost
+        self.root.attributes('-topmost', self.topmost)
+        if self.topmost:
+            self.topmost_button.config(text="🔒 Rester au-dessus: ON")
+        else:
+            self.topmost_button.config(text="🔓 Rester au-dessus: OFF")
 
     def listen_hotkey(self):
         def on_press(key):
